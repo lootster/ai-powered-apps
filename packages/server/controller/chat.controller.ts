@@ -24,7 +24,9 @@ export const chatController = {
          const { prompt, conversationId } = req.body;
          const response = await chatService.sendMessage(prompt, conversationId);
 
-         res.json({ response: response.message });
+         // Return the generated message under the `message` key to match the
+         // client-side `ChatBot` component which expects `data.message`.
+         res.json({ message: response.message });
       } catch (error) {
          res.status(500).json({ error: 'Fail to generate a response.' });
       }
